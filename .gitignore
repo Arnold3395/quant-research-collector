@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+.venv/
+data/
+data-*/
+*.log
+*.log.*
+tmp/
+# Local libraries, downloaded documents, backups and exports are not source code.
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.pdf
+*.zip
+http_cache/
+config_history/
+maintenance_history/
+backups/
+/exports/
+# Local credentials and editor/agent state.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+.codex/
+.agents/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

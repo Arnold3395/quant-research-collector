@@ -1,0 +1,153 @@
+# No API keys or AI services required. All paths are relative to this file.
+source_files = ["sources.d/*.toml"]
+[collector]
+data_dir = "data"
+user_agent = "QuantResearchCollector/1.0 (personal research; no AI)"
+initial_days = 14
+overlap_days = 3
+report_days = 7
+request_interval_seconds = 1.2
+timeout_seconds = 25
+http_attempts = 2
+max_run_minutes = 20
+max_downloads_per_run = 30
+max_download_attempts = 8
+retry_hours = 24
+no_pdf_retry_hours = 168
+max_pdf_mb = 40
+retry_max_hours = 168
+source_failure_base_minutes = 30
+source_failure_max_hours = 24
+stale_source_hours = 72
+log_max_mb = 10
+log_backups = 5
+# Bounded candidate audit and optional compressed raw discovery responses.
+retain_candidates = true
+candidate_retention_days = 90
+candidate_max_mb = 100
+retain_raw_responses = false
+raw_response_max_mb = 50
+# Share the existing total run budget; metadata-only discovery can use all of it.
+discovery_budget_fraction = 0.65
+source_max_seconds = 180
+download_max_per_source = 10 # 0 disables the per-source cap; round-robin still applies.
+backlog_alert_days = 7
+# Optional: trusted PEM certificate bundle for environments requiring one.
+# ca_file = 'C:\path\to\trusted-ca-bundle.pem'
+
+[filter]
+minimum_score = 2
+# Exclusions apply to titles only. Keep this conservative to avoid losing papers.
+exclude_terms = []
+
+[filter.topics]
+"因子与资产定价" = ["asset pricing", "factor investing", "factor model", "factor premium", "risk premia", "risk premium", "cross-sectional returns", "return predictability", "stock return", "equity return", "alpha", "多因子", "因子", "选股", "指数增强", "量化投资", "量化交易"]
+"组合与资产配置" = ["portfolio", "asset allocation", "risk parity", "diversification", "covariance estimation", "ETF", "组合优化", "投资组合", "资产配置", "风险平价", "ETF"]
+"CTA与趋势" = ["trend following", "trend-following", "managed futures", "time series momentum", "carry trade", "commodity futures", "CTA", "momentum", "趋势跟踪", "动量", "期货", "基差", "期限结构", "套利"]
+"衍生品与波动率" = ["derivative pricing", "option pricing", "option market", "options market", "volatility", "hedging", "stochastic volatility", "rough volatility", "Monte Carlo", "Black-Scholes", "Heston", "期权", "衍生品", "波动率", "对冲", "定价", "蒙特卡洛"]
+"风险管理" = ["risk management", "expected shortfall", "value at risk", "value-at-risk", "tail risk", "stress testing", "liquidity risk", "drawdown", "风险管理", "尾部风险", "压力测试", "回撤", "流动性风险"]
+"微观结构与执行" = ["market microstructure", "order book", "order flow", "market making", "price impact", "optimal execution", "transaction cost", "high frequency trading", "high-frequency trading", "bid-ask", "microstructure", "市场微观结构", "订单簿", "做市", "交易成本", "价格冲击", "算法交易", "高频交易", "市场质量"]
+"利率与信用" = ["term structure", "yield curve", "interest rate model", "credit risk", "credit spread", "default risk", "bond pricing", "fixed income", "Treasury market", "swap pricing", "回购市场", "利率模型", "收益率曲线", "信用风险", "信用利差", "固定收益", "债券定价"]
+"统计与机器学习方法" = ["financial econometrics", "statistical arbitrage", "financial time series", "financial forecasting", "machine learning in finance", "deep hedging", "金融计量", "统计套利", "金融时间序列", "机器学习", "深度学习"]
+
+[[sources]]
+id = "arxiv_quant"
+name = "arXiv quantitative finance"
+kind = "arxiv"
+url = "https://export.arxiv.org/api/query"
+query = "(cat:q-fin.CP OR cat:q-fin.GN OR cat:q-fin.MF OR cat:q-fin.PM OR cat:q-fin.PR OR cat:q-fin.RM OR cat:q-fin.ST OR cat:q-fin.TR)"
+allowed_domains = ["arxiv.org"]
+page_size = 100
+max_pages = 20
+enabled = true
+download = true
+
+[[sources]]
+id = "arxiv_finance_methods"
+name = "arXiv ML methods applied to finance"
+kind = "arxiv"
+url = "https://export.arxiv.org/api/query"
+query = '((cat:cs.LG OR cat:stat.ML OR cat:math.OC) AND (all:"asset pricing" OR all:"portfolio optimization" OR all:"option pricing" OR all:"algorithmic trading" OR all:"market making" OR all:"deep hedging"))'
+allowed_domains = ["arxiv.org"]
+page_size = 100
+max_pages = 10
+enabled = true
+download = true
+
+[[sources]]
+id = "bis_working_papers"
+name = "BIS Working Papers"
+kind = "rss"
+url = "https://www.bis.org/doclist/wppubls.rss"
+allowed_domains = ["bis.org"]
+enabled = true
+download = true
+
+[[sources]]
+id = "fed_feds"
+name = "Federal Reserve FEDS"
+kind = "rss"
+url = "https://www.federalreserve.gov/feeds/feds.xml"
+allowed_domains = ["federalreserve.gov"]
+enabled = true
+download = true
+
+[[sources]]
+id = "fed_ifdp"
+name = "Federal Reserve IFDP"
+kind = "rss"
+url = "https://www.federalreserve.gov/feeds/ifdp.xml"
+allowed_domains = ["federalreserve.gov"]
+enabled = true
+download = true
+
+[[sources]]
+id = "aqr_public_research"
+name = "AQR public research listing"
+kind = "html"
+url = "https://www.aqr.com/insights/research"
+link_pattern = '^https://(?:www\.)?aqr\.com/Insights/Research/[^/]+/[^/]+/?$'
+allowed_domains = ["aqr.com"]
+enabled = true
+download = true
+minimum_score = 1
+
+[[sources]]
+id = "sse_public_research"
+name = "Shanghai Stock Exchange public research"
+kind = "html"
+url = "https://www.sse.com.cn/aboutus/research/latest/"
+link_pattern = '^https://(?:www\.)?sse\.com\.cn/aboutus/research/(?:report|special)/c/.*\.(?:pdf|shtml|html)(?:\?|$)'
+allowed_domains = ["sse.com.cn"]
+enabled = true
+download = true
+minimum_score = 1
+
+# Extra official endpoints. ECB is optional; CFM and Bank of Canada were verified
+# and enabled. Explicit --sources selection can test a disabled endpoint.
+[[sources]]
+id = "ecb_working_papers"
+name = "ECB Working Papers (verify TLS/connectivity with doctor first)"
+kind = "rss"
+url = "https://www.ecb.europa.eu/rss/wppub.html"
+allowed_domains = ["ecb.europa.eu"]
+enabled = false
+download = true
+
+[[sources]]
+id = "cfm_public_research"
+name = "CFM public research and articles"
+kind = "rss"
+url = "https://www.cfm.com/feed/"
+allowed_domains = ["cfm.com", "arxiv.org"]
+enabled = true
+download = true
+
+[[sources]]
+id = "bank_canada_working_papers"
+name = "Bank of Canada Working Papers"
+kind = "rss"
+url = "https://www.bankofcanada.ca/content_type/working-papers/feed/"
+allowed_domains = ["bankofcanada.ca"]
+enabled = true
+download = true

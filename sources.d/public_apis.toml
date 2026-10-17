@@ -1,0 +1,67 @@
+# Paged adapters: public metadata, no API key required. Only a completed fixed
+# time window advances its watermark; continuation cursors survive restarts.
+[[sources]]
+id = "crossref_quantitative_finance"
+name = "Crossref - Quantitative Finance journal"
+kind = "crossref"
+url = "https://api.crossref.org/works"
+issn = "1469-7696"
+work_type = "journal-article"
+allowed_domains = ["crossref.org"]
+page_size = 100
+max_pages = 3
+enabled = true
+download = false
+resolve_pdf = false
+notes = "Free DOI metadata; publisher PDF links and licenses do not guarantee free full text."
+
+[[sources]]
+id = "datacite_quant_research"
+name = "DataCite - finance research repositories"
+kind = "datacite"
+url = "https://api.datacite.org/dois"
+query = 'titles.title:("portfolio optimization" OR "option pricing" OR "market microstructure" OR "algorithmic trading" OR "risk parity" OR "factor investing" OR "statistical arbitrage" OR "volatility modeling" OR "asset pricing")'
+resource_types = ["text", "preprint", "journal-article", "conference-paper", "report"]
+allowed_domains = ["datacite.org"]
+page_size = 100
+max_pages = 3
+enabled = true
+download = false
+resolve_pdf = false
+notes = "Free repository DOI metadata; includes Zenodo and other repositories. Not a paper-quality screen."
+
+[[sources]]
+id = "econstor_open_research"
+name = "EconStor - open economics and finance research"
+kind = "oai_pmh"
+url = "https://www.econstor.eu/oai/request"
+metadata_prefix = "oai_dc"
+set_spec = "open_access"
+date_granularity = "seconds"
+allowed_domains = ["econstor.eu", "hdl.handle.net"]
+max_pages = 3
+enabled = true
+download = true
+notes = "OAI metadata access verified; full-text access is separate and may be blocked by a repository challenge."
+
+# Public RSS endpoints verified in official documentation, but the local TLS
+# chain failed. Kept disabled; never turn off TLS validation to enable them.
+[[sources]]
+id = "rba_research_papers"
+name = "Reserve Bank of Australia Research Discussion Papers"
+kind = "rss"
+url = "https://www.rba.gov.au/rss/rss-cb-rdp.xml"
+allowed_domains = ["rba.gov.au"]
+enabled = false
+download = true
+notes = "Local TLS certificate-chain failure; requires a trusted CA fix before use."
+
+[[sources]]
+id = "snb_working_papers"
+name = "Swiss National Bank research papers"
+kind = "rss"
+url = "https://www.snb.ch/public/rss/en/papers"
+allowed_domains = ["snb.ch"]
+enabled = false
+download = true
+notes = "Local TLS certificate-chain failure; requires a trusted CA fix before use."
