@@ -5,6 +5,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](#quick-start)
 [![Standard library](https://img.shields.io/badge/Dependencies-standard%20library-2EA44F)](#quick-start)
 [![No AI services](https://img.shields.io/badge/Runtime-no%20AI%20services-555555)](#highlights)
+[![Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
 
 **Build a local, auditable library of quantitative finance papers and research reports.**
 
@@ -315,7 +316,7 @@ For changes, keep the runtime in the standard library, preserve source IDs and p
 
 ## License
 
-No project license has been selected yet. Third-party papers, reports and source metadata retain their own rights and access conditions; publishing this code does not publish or relicense a collected corpus.
+Licensed under the **Apache License 2.0**. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Third-party papers, reports and source metadata retain their own rights and access conditions; this project license does not relicense a collected corpus.
 
 ## README references
 

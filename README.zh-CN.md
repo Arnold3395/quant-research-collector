@@ -5,6 +5,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](#快速开始)
 [![仅标准库](https://img.shields.io/badge/Dependencies-standard%20library-2EA44F)](#快速开始)
 [![不调用AI服务](https://img.shields.io/badge/Runtime-no%20AI%20services-555555)](#核心功能)
+[![Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
 
 **搭建本地、可追溯的量化金融论文与研究报告库。**
 
@@ -315,7 +316,7 @@ python -m unittest discover -s tests -v
 
 ## 许可证
 
-项目代码许可证尚未指定。第三方论文、研报及来源元数据保留各自的权利和访问条件；发布代码不等于发布或重新授权采集语料。
+项目采用 **Apache License 2.0**，见 [LICENSE](LICENSE) 与 [NOTICE](NOTICE)。第三方论文、研报及来源元数据保留各自的权利和访问条件；项目许可证不重新授权采集语料。
 
 ## README 参考
 
